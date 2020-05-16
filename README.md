@@ -81,12 +81,25 @@ fPm10 = my_sds1.getPM10();
 ### Reading firmware version
 The function querys the firmware version from the sensor.
 ```C++
-fPm25 = my_sds1.getPM25();
-fPm10 = my_sds1.getPM10();
+my_sds1.sendCommand(SDS011::Command::FIRMWARE);
+```
+
+```C++
+void fSDS011RxCb(int event) {
+  if(event == SDS011::Event::RX_FIRMWARE) {
+    iFW = my_sds1.getFW();
+    iID = my_sds1.getID();
+    received = true;
+  }
+}
+```
+
+```C++
+  pr.printf("SDS fw=%d-%d-%d id=%x\n", (iFW>>16)&0xff, (iFW>>8)&0xff, iFW&0xff, iID);
 ```
 
 ### Setting custom working period
-In order to set custom working period you need to specify single argument - duration (minutes) of the cycle. One cycle means working 30 sec, doing measurement and sleeping for ```duration-30 [sec]```. This setting is recommended when using 'active' reporting mode.
+In order to set custom working period you need to specify single argument - duration (minutes) of the cycle. One cycle means working 30 sec, doing measurement and sleeping for ```duration-30 [sec]```.
 ```C++
 my_sds1.sendCommand(SDS011::Command::PERIOD,1);
 ```
