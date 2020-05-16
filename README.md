@@ -44,7 +44,9 @@ int main() {
   return 0;
 }
 ```
-For more complex example see https://github.com/ATM-HSW/exampleSDS011.
+![serial log](https://github.com/ATM-HSW/libSDS011/blob/master/seriallog.png)
+
+For a more complex example see https://github.com/ATM-HSW/exampleSDS011.
 
 ## Initialization
 Communication with the sensor is handled by an instance of RawSerial. It is passed directly to the constructor. When a complete data packet is received, a callback function is called by the library.
